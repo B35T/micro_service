@@ -5,6 +5,7 @@ import (
 	_ "github.com/lib/pq"
 	"fmt"
 	"micro_service/config"
+	"errors"
 )
 
 
@@ -25,6 +26,12 @@ func NewDB() *PgStore {
 	url := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable", conf.DB_user,conf.DB_Pw,conf.DB_Ip,conf.DB_port,conf.DB)
 	db, err := sql.Open("postgres",url)
 	if err != nil {
+		panic(err)
+	}
+
+	ping :=  db.Ping()
+	if ping != nil {
+		err = errors.New("db ping fail!!")
 		panic(err)
 	}
 

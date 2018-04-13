@@ -3,6 +3,7 @@ package config
 import (
 	"io/ioutil"
 	"encoding/json"
+	"os/exec"
 )
 
 type config struct {
@@ -14,8 +15,18 @@ type config struct {
 	DB_Tb_Name string `json:"db_tb_name"`
 }
 
+var urlConfig = func() string {
+	out,_ := exec.Command("uname").Output()
+	var s = string(out)
+	darwin := string([]byte{68, 97, 114, 119, 105, 110, 10,})
+	if s == darwin {
+		return "src/micro_service/config/config.json"
+	}
+	return  "config/config.json"
+}()
+
 var Open_file = func() *config {
-	data, err := ioutil.ReadFile("config/config.json")
+	data, err := ioutil.ReadFile(urlConfig)
 	if err != nil {
 		panic(err)
 	}

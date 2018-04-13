@@ -27,3 +27,8 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func TestConnect(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w,"test connect")
+}
+
+
