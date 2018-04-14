@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"micro_service/models"
 	"fmt"
+	"encoding/json"
 )
 
 func Register(w http.ResponseWriter, r *http.Request) {
@@ -23,6 +24,28 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		} else {
 			fmt.Println("insert data successful")
 		}
+		break
+	}
+}
+
+func JsonAPI(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case http.MethodGet:
+		p := &models.PersonStruct{
+			PersonID:"000000000",
+			FirstName:"chaloemphong",
+			LastName:"chaimool",
+			Address:"1/1",
+			City:"SSK",
+		}
+
+		j, err := json.Marshal(p)
+		if err != nil {
+			panic(err)
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		fmt.Fprint(w,string(j))
 		break
 	}
 }

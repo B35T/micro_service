@@ -2,7 +2,7 @@
   "db":"users_store",
   "db_pw":"root",
   "db_user":"admin",
-  "db_ip":"192.168.1.6",
+  "db_ip":"192.168.1.7",
   "db_port":"5432",
   "db_tb_name":"Persons"
 }
